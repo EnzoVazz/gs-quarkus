@@ -19,6 +19,14 @@ public class FuncionarioResource {
         public String senha;
     }
 
+
+    public static class ErrorResponse {
+        public String message;
+        public ErrorResponse(String message) {
+            this.message = message;
+        }
+    }
+
     private FuncionarioBO funcionarioBO = new FuncionarioBO();
 
     // Selecionar
@@ -64,9 +72,13 @@ public class FuncionarioResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response loginRs(LoginSolicitado loginSolicitado) throws SQLException, ClassNotFoundException {
         Funcionario funcionario = funcionarioBO.loginBo(loginSolicitado.email, loginSolicitado.senha);
+
         if (funcionario == null){
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Email ou senha inválidos.").build();
+            ErrorResponse erro = new ErrorResponse("Email ou senha inválidos.");
+            return Response.status(Response.Status.UNAUTHORIZED).entity(erro).build();
         }
+
+        // Sucesso
         return Response.ok(funcionario).build();
     }
 }
