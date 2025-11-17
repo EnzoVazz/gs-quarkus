@@ -32,4 +32,11 @@ public class FuncionarioBO {
         FuncionarioDAO funcionarioDao = new FuncionarioDAO();
         funcionarioDao.deletar(id_funcionario);
     }
+
+    //Login
+    public Funcionario loginBo(String email, String senha) throws SQLException, ClassNotFoundException {
+        FuncionarioDAO funcionarioDao = new FuncionarioDAO();
+        Funcionario funcionario = funcionarioDao.buscarEmailESenha(email, senha);
+        return funcionario;
+    }
 }

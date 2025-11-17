@@ -14,6 +14,11 @@ import java.util.ArrayList;
 @Path("/funcionario")
 public class FuncionarioResource {
 
+    public static class LoginSolicitado{
+        public String email;
+        public String senha;
+    }
+
     private FuncionarioBO funcionarioBO = new FuncionarioBO();
 
     // Selecionar
@@ -43,12 +48,25 @@ public class FuncionarioResource {
         return Response.ok().build();
     }
 
-    // Deletar (DELETE)
+    // Deletar
     @DELETE
     @Path("/{id_funcionario}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response deletarRs(@PathParam("id_funcionario") int id_funcionario) throws SQLException, ClassNotFoundException {
         funcionarioBO.deletarBo(id_funcionario);
         return Response.ok().build();
+    }
+
+    //Login
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response loginRs(LoginSolicitado loginSolicitado) throws SQLException, ClassNotFoundException {
+        Funcionario funcionario = funcionarioBO.loginBo(loginSolicitado.email, loginSolicitado.senha);
+        if (funcionario == null){
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Email ou senha inválidos.").build();
+        }
+        return Response.ok(funcionario).build();
     }
 }

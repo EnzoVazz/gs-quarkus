@@ -105,4 +105,38 @@ public class FuncionarioDAO {
         }
         return listFuncionarios;
     }
+
+    public Funcionario buscarEmailESenha(String email, String senha) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT F.*, E.NM_EMPRESA " +
+                "FROM T_CZN_FUNCIONARIO F " +
+                "JOIN T_CZN_EMPRESA E ON F.ID_EMPRESA = E.ID_EMPRESA " +
+                "WHERE F.EMAIL = ? AND F.SENHA = ?";
+
+        try (Connection conexao = new ConexaoFactory().conexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setString(1, email);
+            stmt.setString(2, senha);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                if (rs.next()) {
+                    Funcionario objFuncionario = new Funcionario();
+                    objFuncionario.setId_funcionario(rs.getInt("ID_FUNCIONARIO"));
+                    objFuncionario.setNm_funcionario(rs.getString("NM_FUNCIONARIO"));
+                    objFuncionario.setEmail(rs.getString("EMAIL"));
+                    objFuncionario.setCargo(rs.getString("CARGO"));
+
+                    Empresa objEmpresa = new Empresa();
+                    objEmpresa.setId_empresa(rs.getInt("ID_EMPRESA"));
+                    objEmpresa.setNm_empresa(rs.getString("NM_EMPRESA"));
+
+                    objFuncionario.setEmpresa(objEmpresa);
+
+                    return objFuncionario;
+                }
+            }
+        }
+        return null;
+    }
 }
