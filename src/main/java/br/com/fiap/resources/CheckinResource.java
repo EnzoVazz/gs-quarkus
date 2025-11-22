@@ -1,7 +1,6 @@
 package br.com.fiap.resources;
 
 import br.com.fiap.beans.Checkin;
-import br.com.fiap.beans.Empresa;
 import br.com.fiap.bo.CheckinBO;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;

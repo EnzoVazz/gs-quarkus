@@ -1,6 +1,5 @@
 package br.com.fiap.resources;
 
-import br.com.fiap.beans.Empresa;
 import br.com.fiap.beans.Programa;
 import br.com.fiap.bo.ProgramaBO;
 import jakarta.ws.rs.*;

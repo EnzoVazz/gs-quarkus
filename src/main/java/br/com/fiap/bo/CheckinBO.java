@@ -1,9 +1,7 @@
 package br.com.fiap.bo;
 
 import br.com.fiap.beans.Checkin;
-import br.com.fiap.beans.Programa;
 import br.com.fiap.dao.CheckinDAO;
-import br.com.fiap.dao.ProgramaDAO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
