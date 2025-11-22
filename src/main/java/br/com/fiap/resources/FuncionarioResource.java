@@ -76,8 +76,6 @@ public class FuncionarioResource {
             ErrorResponse erro = new ErrorResponse("Email ou senha inválidos.");
             return Response.status(Response.Status.UNAUTHORIZED).entity(erro).build();
         }
-
-        // Sucesso
         return Response.ok(funcionario).build();
     }
 }

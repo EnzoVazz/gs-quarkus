@@ -35,11 +35,7 @@ public class EmpresaDAO {
                 "(SELECT ID_FUNCIONARIO FROM T_CZN_FUNCIONARIO WHERE ID_EMPRESA = ?)";
 
         String sqlF = "DELETE FROM T_CZN_FUNCIONARIO WHERE ID_EMPRESA = ?";
-
-        // 3. Deletar os "filhos" (Programas)
         String sqlP = "DELETE FROM T_CZN_PROGRAMA WHERE ID_EMPRESA = ?";
-
-        // 4. Deletar o "pai" (Empresa)
         String sqlE = "DELETE FROM T_CZN_EMPRESA WHERE ID_EMPRESA = ?";
 
         try (Connection conexao = new ConexaoFactory().conexao()) {
